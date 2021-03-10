@@ -1,0 +1,6 @@
+framework module Pods_bambooNews {
+  umbrella header "Pods-bambooNews-umbrella.h"
+
+  export *
+  module * { export * }
+}
