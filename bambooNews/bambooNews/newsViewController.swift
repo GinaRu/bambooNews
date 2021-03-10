@@ -7,9 +7,12 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class newsViewController: UITableViewController {
+    
+    
+    
     override func viewDidLoad() {
-        print("visor noticies creat")
     }
 }
