@@ -47,12 +47,15 @@ class newsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let titles = articles?[indexPath.row].title ?? "Headline NO encontrada"
+       // let titles = articles?[indexPath.row].title ?? "Headline NO encontrada"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         
         if let newsViewCell = cell as? newsViewCell {
-            newsViewCell.labelCell.text = "\(titles)"
+            if let article = articles?[indexPath.row] {
+                newsViewCell.configure(with: article)
+            }
+
         }
         return cell
     }
