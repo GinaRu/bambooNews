@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Alamofire
+import AlamofireImage
 
 class newsViewCell: UITableViewCell {
 
     @IBOutlet var imageViewCell: UIImageView!
-    
     @IBOutlet var labelCell: UILabel!
 }

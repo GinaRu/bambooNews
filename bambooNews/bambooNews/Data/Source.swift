@@ -8,7 +8,7 @@
 import Foundation
 
 struct Source: Decodable {
-    let id: String
+    let id: String?
     let name: String
     
     enum CodingKeys: String, CodingKey {
