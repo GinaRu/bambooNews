@@ -25,6 +25,7 @@ class newsViewCell: UITableViewCell {
     func configure(with article: Article) {
         labelCell.text = article.title
         
+        imageViewCell.image = nil
         if let stringUrltoImage = article.urlToImage {
             if let url = URL(string: stringUrltoImage) {
                 imageViewCell.af.setImage(withURL: url)

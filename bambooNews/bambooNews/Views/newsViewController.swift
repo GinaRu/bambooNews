@@ -39,6 +39,13 @@ class newsViewController: UITableViewController {
    
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPosition: Int = indexPath.row
+    
+    let art: Article? = articles?[selectedPosition]
+    
+    NewsViewModel.selectedArticle = art
+    
+    performSegue(withIdentifier: "SegueToDetail", sender: nil)
+        
         print("Has seleccionado la fila \(selectedPosition)")
     }
     
