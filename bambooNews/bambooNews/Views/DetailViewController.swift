@@ -12,16 +12,17 @@ import AlamofireImage
 
 class DetailViewController: UIViewController {
     @IBOutlet var headlineLabel: UILabel!
-    
     @IBOutlet var authorLabel: UILabel!
-    
     @IBOutlet var dateLabel: UILabel!
-    
     @IBOutlet var imageDetail: UIImageView!
-    
-    @IBOutlet var entradetaLabel: UILabel!
+   
+    @IBOutlet var entradetaLabel: UITextView!
     
     @IBAction func navigationTapped(_ sender: Any) {
+
+        guard let stringUrl: String = articleSeleccionado?.url,
+              let url = URL(string: stringUrl) else {return}
+        UIApplication.shared.open(url)
     }
     
     let articleSeleccionado = NewsViewModel.selectedArticle
@@ -34,16 +35,20 @@ class DetailViewController: UIViewController {
                 imageDetail.af.setImage(withURL: url)
             }
         }
-
+    }
+    
+   private func configureView() {
+        self.title = articleSeleccionado?.source.name
+        headlineLabel.text = articleSeleccionado?.title
+        authorLabel.text = articleSeleccionado?.author
+        dateLabel.text = articleSeleccionado?.publishedAtFormatted
+        entradetaLabel.text = articleSeleccionado?.description
+        setImage()
     }
     
     override func viewDidLoad() {
-        headlineLabel.text = articleSeleccionado?.title
-        authorLabel.text = articleSeleccionado?.author
-        dateLabel.text = articleSeleccionado?.publishedAt
-        entradetaLabel.text = articleSeleccionado?.description
-        setImage()
-        
+        super.viewDidLoad()
+        configureView()
     }
     
 }
