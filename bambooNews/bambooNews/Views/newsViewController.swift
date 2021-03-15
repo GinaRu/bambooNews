@@ -28,6 +28,13 @@ class newsViewController: UITableViewController {
         
         userSearch.delegate = self
         
+//        newsManager.fetchSources(success: { (news) in
+//            print("$$ \(news)")
+//        }, failure: { (error) in
+//            print(error.message)
+//
+//        })
+        
         newsManager.fetchHeadlines(countryID: CountryType.unitedStates,
                                    success: { (news) in
                                     self.articles = news.articles
@@ -90,12 +97,12 @@ extension newsViewController: UITextFieldDelegate {
             newsManager.fetchEverything(userSearch: search, success: { (news) in
                 self.articles = news.articles
                 self.tableView.reloadData()
-                self.userSearch.resignFirstResponder()
     },
                failure: { (error) in
                 print(error.message)
     })
         print("El usuario ha buscado \(search)")
+        self.userSearch.resignFirstResponder()
         return true
 }
 }

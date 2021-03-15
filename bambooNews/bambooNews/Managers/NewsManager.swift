@@ -17,7 +17,7 @@ struct NewsManager {
         
         let url = Endpoints.topHeadlines.url
         let parameters: [String:String] = [
-            "country" : countryID.rawValue, "apiKey" : apiKeyValue]
+            EndpointParameter.country.rawValue : countryID.rawValue, EndpointParameter.apiKey.rawValue : apiKeyValue] //Aquí construim el diccionari que fa referència al JSON -> "country" = "us" per exemple
         
         AF.request(url, parameters: parameters).validate().responseDecodable(of: ArticleList.self) { (response) in
             
@@ -30,23 +30,41 @@ struct NewsManager {
         
     }
     
-    
-    
+
     func fetchEverything (userSearch: String,
                           success: @escaping (ArticleList) -> (),
                           failure: @escaping (APIError)-> ()) {
          
-         let url = Endpoints.topHeadlines.url
+         let url = Endpoints.everything.url
          let parameters: [String:String] = [
-             "q" : userSearch, "apiKey" : apiKeyValue]
+            EndpointParameter.query.rawValue : userSearch, EndpointParameter.apiKey.rawValue : apiKeyValue]
+            
          
          AF.request(url, parameters: parameters).validate().responseDecodable(of: ArticleList.self) { (response) in
              
              guard let articleList: ArticleList = response.value  else  { return }
-             success(articleList)
-             // Aquí cridariem a success
-             
+             success(articleList) // Aquí tenim la llista d'articles que buscavem. Quan ho cridem al viewController li anomenarem news. 
          }
     
 }
+    
+    func fetchSources (
+    success: @escaping (SourceList) -> (),
+    failure: @escaping (APIError)-> ()) {
+
+let url = Endpoints.source.url
+let parameters: [String:String] = [
+EndpointParameter.apiKey.rawValue : apiKeyValue]
+
+
+AF.request(url, parameters: parameters).validate().responseDecodable(of: SourceList.self) { (response) in
+
+guard let sourceList: SourceList = response.value  else  { return }
+success(sourceList) // Aquí tenim la llista d'articles que buscavem. Quan ho cridem al viewController li anomenarem news.
+}
+
+}
+    
+    
+    
 }
