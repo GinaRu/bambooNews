@@ -13,6 +13,9 @@ import AlamofireImage
 class newsViewController: UITableViewController {
     private let reuseIdentifier = String(describing: newsViewCell.self)
     
+    
+    @IBOutlet var userSearch: UITextField!
+    
     @IBOutlet var newstableView: UITableView!
     
     let newsManager = NewsManager()
@@ -22,6 +25,8 @@ class newsViewController: UITableViewController {
         super.viewDidLoad()
         let nib = UINib(nibName: reuseIdentifier, bundle: nil)
         newstableView.register(nib, forCellReuseIdentifier: reuseIdentifier)
+        
+        userSearch.delegate = self
         
         newsManager.fetchHeadlines(countryID: CountryType.unitedStates,
                                    success: { (news) in
@@ -33,6 +38,9 @@ class newsViewController: UITableViewController {
                                    failure: { (error) in
                                     print(error.message)
     })
+        
+        
+            
         
     }
     
@@ -74,4 +82,20 @@ class newsViewController: UITableViewController {
     }
     
 
+}
+
+extension newsViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let search = userSearch.text else { return false}
+            newsManager.fetchEverything(userSearch: search, success: { (news) in
+                self.articles = news.articles
+                self.tableView.reloadData()
+                self.userSearch.resignFirstResponder()
+    },
+               failure: { (error) in
+                print(error.message)
+    })
+        print("El usuario ha buscado \(search)")
+        return true
+}
 }

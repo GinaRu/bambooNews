@@ -30,4 +30,23 @@ struct NewsManager {
         
     }
     
+    
+    
+    func fetchEverything (userSearch: String,
+                          success: @escaping (ArticleList) -> (),
+                          failure: @escaping (APIError)-> ()) {
+         
+         let url = Endpoints.topHeadlines.url
+         let parameters: [String:String] = [
+             "q" : userSearch, "apiKey" : apiKeyValue]
+         
+         AF.request(url, parameters: parameters).validate().responseDecodable(of: ArticleList.self) { (response) in
+             
+             guard let articleList: ArticleList = response.value  else  { return }
+             success(articleList)
+             // Aquí cridariem a success
+             
+         }
+    
+}
 }
