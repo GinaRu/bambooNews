@@ -20,6 +20,7 @@ class newsViewController: UITableViewController {
     
     let newsManager = NewsManager()
     var articles: [Article]?
+    var sources: [Source]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +29,6 @@ class newsViewController: UITableViewController {
         
         userSearch.delegate = self
         
-//        newsManager.fetchSources(success: { (news) in
-//            print("$$ \(news)")
-//        }, failure: { (error) in
-//            print(error.message)
-//
-//        })
         
         newsManager.fetchHeadlines(countryID: CountryType.unitedStates,
                                    success: { (news) in
@@ -46,8 +41,12 @@ class newsViewController: UITableViewController {
                                     print(error.message)
     })
         
-        
-            
+        newsManager.fetchSources(success: { (fuentes) in
+           self.sources = fuentes.sources
+               print("$$ \(fuentes)")
+          }, failure: { (error) in
+              print(error.message)
+         })
         
     }
     
@@ -55,9 +54,25 @@ class newsViewController: UITableViewController {
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedPosition: Int = indexPath.row
     
-    let art: Article? = articles?[selectedPosition]
     
+    // HEEEEEEEEEEEY
+    
+    let art: Article? = articles?[selectedPosition]
     NewsViewModel.selectedArticle = art
+    
+    NewsViewModel.selectedSource = nil
+    let sourceID = art?.source.id
+    if let sourcesUnwraped = sources {
+        for s in sourcesUnwraped {
+            if sourceID == s.id {
+            NewsViewModel.selectedSource = s
+        }
+            
+        }
+   
+        
+    }
+    
     
     performSegue(withIdentifier: "SegueToDetail", sender: nil)
         

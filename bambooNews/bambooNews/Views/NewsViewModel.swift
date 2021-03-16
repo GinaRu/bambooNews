@@ -9,4 +9,5 @@ import Foundation
 
 class NewsViewModel {
     static var selectedArticle: Article?
+    static var selectedSource: Source? 
 }

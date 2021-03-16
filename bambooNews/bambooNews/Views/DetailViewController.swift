@@ -26,6 +26,7 @@ class DetailViewController: UIViewController {
     }
     
     let articleSeleccionado = NewsViewModel.selectedArticle
+    let sourceSeleccionada = NewsViewModel.selectedSource
     
     
     func setImage()  {
@@ -42,7 +43,7 @@ class DetailViewController: UIViewController {
         headlineLabel.text = articleSeleccionado?.title
         authorLabel.text = articleSeleccionado?.author
         dateLabel.text = articleSeleccionado?.publishedAtFormatted
-        entradetaLabel.text = articleSeleccionado?.description
+    entradetaLabel.text = "\(articleSeleccionado?.description ?? "Descripción no disponible.")\n\n\n" + "Fuente: \(sourceSeleccionada?.name ?? "Nombre de fuente no disponible")\n" + "\(sourceSeleccionada?.description ?? "Descripción de fuente no encontrada.")"
         setImage()
     }
     
