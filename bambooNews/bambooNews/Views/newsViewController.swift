@@ -68,13 +68,13 @@ class newsViewController: UITableViewController {
         for font in sourcesUnwraped {
             if sourceID == font.id {
             NewsViewModel.selectedSource = font
-        // Aquí podriem posar un break i ja no miraria més fonts una vegada trobés una que coincideixi a la llista. 
+         }
+  
         }
-            
-        }
-   
-        
     }
+      // EN COMPTES DEL BUCLE FOR PODRIEM FER AIXÓ A DINTRE DEL IF LET:
+    //let font: Source? = sourcesUnwraped.first {$0.id == sourceID}
+   // NewsViewModel.selectedSource = font
     
     
     performSegue(withIdentifier: "SegueToDetail", sender: nil)
