@@ -15,7 +15,6 @@ class newsViewController: UITableViewController {
     
     
     @IBOutlet var userSearch: UITextField!
-    
     @IBOutlet var newstableView: UITableView!
     
     let newsManager = NewsManager()
@@ -75,6 +74,14 @@ class newsViewController: UITableViewController {
       // EN COMPTES DEL BUCLE FOR PODRIEM FER AIXÓ A DINTRE DEL IF LET:
     //let font: Source? = sourcesUnwraped.first {$0.id == sourceID}
    // NewsViewModel.selectedSource = font
+    // Aquest .first ens retorna el primer element que compleixi els requessits que demanem entre claus.
+    // OTRO EJEMPLO:
+    // var source: Source? = nil
+   // sourcesUnWrapped.foreach {
+    // if $0.id == sourceID {
+   //  source = $0
+  // }
+  // }
     
     
     performSegue(withIdentifier: "SegueToDetail", sender: nil)
