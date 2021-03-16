@@ -21,6 +21,10 @@ class newsViewController: UITableViewController {
     
     
     @IBAction func segmentedPulsado(_ sender: Any) {
+      headLinesSegonsPais()
+    }
+    
+    func headLinesSegonsPais() {
         if segmentedTriat.selectedSegmentIndex == 0 {
             fetchSegonsPais(.unitedStates)
         } else if segmentedTriat.selectedSegmentIndex == 1 {
@@ -29,7 +33,6 @@ class newsViewController: UITableViewController {
             fetchSegonsPais(.japon)
         }
     }
-    
     
     let newsManager = NewsManager()
     var articles: [Article]?
@@ -59,9 +62,8 @@ class newsViewController: UITableViewController {
         
         userSearch.delegate = self
         
-            fetchSegonsPais(.unitedStates)
+       headLinesSegonsPais()
        
-        
         newsManager.fetchSources(success: { (fuentes) in
            self.sources = fuentes.sources
             // Aquest (fuentes) és la llista de sources que ens ha retornat. 
