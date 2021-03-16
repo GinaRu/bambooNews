@@ -60,7 +60,7 @@ EndpointParameter.apiKey.rawValue : apiKeyValue]
 AF.request(url, parameters: parameters).validate().responseDecodable(of: SourceList.self) { (response) in
 
 guard let sourceList: SourceList = response.value  else  { return }
-success(sourceList) // Aquí tenim la llista d'articles que buscavem. Quan ho cridem al viewController li anomenarem news.
+success(sourceList) // Aquí tenim la llista de sources que buscavem. Quan ho cridem al viewController li anomenarem fuentes.
 }
 
 }

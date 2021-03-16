@@ -43,7 +43,8 @@ class newsViewController: UITableViewController {
         
         newsManager.fetchSources(success: { (fuentes) in
            self.sources = fuentes.sources
-               print("$$ \(fuentes)")
+            // Aquest (fuentes) és la llista de sources que ens ha retornat. 
+               print("$$")
           }, failure: { (error) in
               print(error.message)
          })
@@ -55,17 +56,19 @@ class newsViewController: UITableViewController {
         let selectedPosition: Int = indexPath.row
     
     
-    // HEEEEEEEEEEEY
+    // AQUÍ RELACIONEM L'ARTICLE SELECCIONAT AMB LA FONT SELECCIONADA:
     
     let art: Article? = articles?[selectedPosition]
     NewsViewModel.selectedArticle = art
     
     NewsViewModel.selectedSource = nil
+    // Li diem que és nil abans de que es construeixi ja que si en algun cas és nil apareixeria l'anterior.
     let sourceID = art?.source.id
     if let sourcesUnwraped = sources {
-        for s in sourcesUnwraped {
-            if sourceID == s.id {
-            NewsViewModel.selectedSource = s
+        for font in sourcesUnwraped {
+            if sourceID == font.id {
+            NewsViewModel.selectedSource = font
+        // Aquí podriem posar un break i ja no miraria més fonts una vegada trobés una que coincideixi a la llista. 
         }
             
         }

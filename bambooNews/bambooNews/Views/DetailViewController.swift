@@ -43,7 +43,7 @@ class DetailViewController: UIViewController {
         headlineLabel.text = articleSeleccionado?.title
         authorLabel.text = articleSeleccionado?.author
         dateLabel.text = articleSeleccionado?.publishedAtFormatted
-    entradetaLabel.text = "\(articleSeleccionado?.description ?? "Descripción no disponible.")\n\n\n" + "Fuente: \(sourceSeleccionada?.name ?? "Nombre de fuente no disponible")\n" + "\(sourceSeleccionada?.description ?? "Descripción de fuente no encontrada.")"
+    entradetaLabel.text = "\(articleSeleccionado?.description ?? "Descripción no disponible.")\n\n\n" + "Fuente: \(sourceSeleccionada?.name ?? "No disponible.")\n" + "\(sourceSeleccionada?.description ?? "")"
         setImage()
     }
     
