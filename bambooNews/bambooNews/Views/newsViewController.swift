@@ -17,9 +17,40 @@ class newsViewController: UITableViewController {
     @IBOutlet var userSearch: UITextField!
     @IBOutlet var newstableView: UITableView!
     
+    @IBOutlet var segmentedTriat: UISegmentedControl!
+    
+    
+    @IBAction func segmentedPulsado(_ sender: Any) {
+        if segmentedTriat.selectedSegmentIndex == 0 {
+            fetchSegonsPais(.unitedStates)
+        } else if segmentedTriat.selectedSegmentIndex == 1 {
+            fetchSegonsPais(.mexico)
+        } else if segmentedTriat.selectedSegmentIndex == 2 {
+            fetchSegonsPais(.japon)
+        }
+    }
+    
+    
     let newsManager = NewsManager()
     var articles: [Article]?
     var sources: [Source]?
+    
+
+    func fetchSegonsPais(_ pais: CountryType) {
+        newsManager.fetchHeadlines(countryID: pais,
+                                       success: { (news) in
+                                        self.articles = news.articles
+    // news és de tipus ArticleList i estem cridant a la seva propietat articles perquè la variable articles es correspongui només amb els articles dins de ArticleList.
+                                        self.tableView.reloadData()
+                print("Num \(news.totalResults)")
+            },
+                                       failure: { (error) in
+                                        print(error.message)
+        })
+            
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,17 +59,8 @@ class newsViewController: UITableViewController {
         
         userSearch.delegate = self
         
-        
-        newsManager.fetchHeadlines(countryID: CountryType.unitedStates,
-                                   success: { (news) in
-                                    self.articles = news.articles
-// news és de tipus ArticleList i estem cridant a la seva propietat articles perquè la variable articles es correspongui només amb els articles dins de ArticleList.
-                                    self.tableView.reloadData()
-            print("Num \(news.totalResults)")
-        },
-                                   failure: { (error) in
-                                    print(error.message)
-    })
+            fetchSegonsPais(.unitedStates)
+       
         
         newsManager.fetchSources(success: { (fuentes) in
            self.sources = fuentes.sources

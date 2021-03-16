@@ -34,6 +34,40 @@
                                 <constraint firstAttribute="bottom" secondItem="bfl-KR-q20" secondAttribute="bottom" id="o6F-b1-s7y"/>
                             </constraints>
                         </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="deo-Ne-IYP">
+                            <rect key="frame" x="0.0" y="143.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AdV-Yz-ApA">
+                                    <rect key="frame" x="10" y="0.0" width="394" height="45"/>
+                                    <segments>
+                                        <segment title="U.S.A"/>
+                                        <segment title="Mexico"/>
+                                        <segment title="Japan"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="segmentedPulsado:" destination="xJr-nm-wY0" eventType="valueChanged" id="4jf-C9-ypz"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="AdV-Yz-ApA" secondAttribute="bottom" id="DJD-V3-jWu"/>
+                                <constraint firstAttribute="trailing" secondItem="AdV-Yz-ApA" secondAttribute="trailing" constant="10" id="eZX-3L-TU2"/>
+                                <constraint firstItem="AdV-Yz-ApA" firstAttribute="leading" secondItem="deo-Ne-IYP" secondAttribute="leading" constant="10" id="urO-0h-mp8"/>
+                                <constraint firstItem="AdV-Yz-ApA" firstAttribute="top" secondItem="deo-Ne-IYP" secondAttribute="top" id="yjz-9P-7z8"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pP2-SD-F9L">
+                                <rect key="frame" x="0.0" y="72" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pP2-SD-F9L" id="SZR-lc-b6l">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="xJr-nm-wY0" id="VhW-6b-eKH"/>
                             <outlet property="delegate" destination="xJr-nm-wY0" id="GHn-KF-88t"/>
@@ -44,6 +78,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="newstableView" destination="SCa-iE-eFZ" id="YIU-rg-qlg"/>
+                        <outlet property="segmentedTriat" destination="AdV-Yz-ApA" id="FPA-1F-JUV"/>
                         <outlet property="userSearch" destination="bfl-KR-q20" id="rkP-im-AKF"/>
                         <segue destination="ldK-P3-6Ib" kind="show" identifier="SegueToDetail" id="INF-sl-TVV"/>
                     </connections>

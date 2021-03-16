@@ -10,5 +10,5 @@ import Foundation
 enum CountryType: String {
     case unitedStates = "us"
     case mexico = "mx"
-    case venezuela = "ve"
+    case japon = "jp"
 }
