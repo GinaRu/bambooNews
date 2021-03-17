@@ -12,19 +12,18 @@ import AlamofireImage
 
 class newsViewController: UITableViewController {
     private let reuseIdentifier = String(describing: newsViewCell.self)
-    
+    let newsManager = NewsManager()
+    var articles: [Article]?
+    var sources: [Source]?
     
     @IBOutlet var userSearch: UITextField!
     @IBOutlet var newstableView: UITableView!
-    
     @IBOutlet var segmentedTriat: UISegmentedControl!
-    
     
     @IBAction func segmentedPulsado(_ sender: UISegmentedControl) {
         let selectedIndex = sender.selectedSegmentIndex
         let countrySelected: CountryType = CountryType.allCases[selectedIndex]
             fetchSegonsPais(countrySelected)
- 
     }
     
   //  func headLinesSegonsPais() {
@@ -36,12 +35,12 @@ class newsViewController: UITableViewController {
 //            fetchSegonsPais(.japon)
 //        }
  //   }
-    
-    let newsManager = NewsManager()
-    var articles: [Article]?
-    var sources: [Source]?
-    
 
+    func loadFirstCountryNews () {
+        let countryIndex = 0
+        segmentedTriat.selectedSegmentIndex = countryIndex
+        fetchSegonsPais(CountryType.allCases[countryIndex])
+    }
     func fetchSegonsPais(_ pais: CountryType) {
         newsManager.fetchHeadlines(countryID: pais,
                                        success: { (news) in
@@ -55,13 +54,8 @@ class newsViewController: UITableViewController {
         })
             
     }
-    
     func setUpSegmentedControl() {
         segmentedTriat.removeAllSegments()
-//        segmentedTriat.insertSegment(withTitle: "U.S.A", at: 0, animated: false)
-//        segmentedTriat.insertSegment(withTitle: "Mexico", at: 1, animated: false)
-//        segmentedTriat.insertSegment(withTitle: "Japan", at: 2, animated: false)
-        
         var segmentIndex = 0
         for segment in CountryType.allCases {
             segmentedTriat.insertSegment(withTitle: segment.name, at: segmentIndex, animated: false)
@@ -69,24 +63,24 @@ class newsViewController: UITableViewController {
         }
         
     }
+    func fetchSources () {
+        newsManager.fetchSources(success: { (fuentes) in
+           self.sources = fuentes.sources
+            // Aquest (fuentes) és la llista de sources que ens ha retornat.
+               print("$$")
+          }, failure: { (error) in
+              print(error.message)
+         })
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: reuseIdentifier, bundle: nil)
         newstableView.register(nib, forCellReuseIdentifier: reuseIdentifier)
-        
         userSearch.delegate = self
-        
         setUpSegmentedControl()
-        
-        newsManager.fetchSources(success: { (fuentes) in
-           self.sources = fuentes.sources
-            // Aquest (fuentes) és la llista de sources que ens ha retornat. 
-               print("$$")
-          }, failure: { (error) in
-              print(error.message)
-         })
-        
+        loadFirstCountryNews()
+        fetchSources()
     }
     
    
@@ -127,32 +121,22 @@ class newsViewController: UITableViewController {
         
         print("Has seleccionado la fila \(selectedPosition)")
     }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles?.count ?? 5
     }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        // let titles = articles?[indexPath.row].title ?? "Headline NO encontrada"
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        
         if let newsViewCell = cell as? newsViewCell {
             if let article = articles?[indexPath.row] {
                 newsViewCell.configure(with: article)
             }
-
         }
         return cell
     }
-   
- 
-    
    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
-    
-
 }
 
 extension newsViewController: UITextFieldDelegate {
