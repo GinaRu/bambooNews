@@ -20,19 +20,22 @@ class newsViewController: UITableViewController {
     @IBOutlet var segmentedTriat: UISegmentedControl!
     
     
-    @IBAction func segmentedPulsado(_ sender: Any) {
-      headLinesSegonsPais()
+    @IBAction func segmentedPulsado(_ sender: UISegmentedControl) {
+        let selectedIndex = sender.selectedSegmentIndex
+        let countrySelected: CountryType = CountryType.allCases[selectedIndex]
+            fetchSegonsPais(countrySelected)
+ 
     }
     
-    func headLinesSegonsPais() {
-        if segmentedTriat.selectedSegmentIndex == 0 {
-            fetchSegonsPais(.unitedStates)
-        } else if segmentedTriat.selectedSegmentIndex == 1 {
-            fetchSegonsPais(.mexico)
-        } else if segmentedTriat.selectedSegmentIndex == 2 {
-            fetchSegonsPais(.japon)
-        }
-    }
+  //  func headLinesSegonsPais() {
+//        if segmentedTriat.selectedSegmentIndex == 0 {
+//            fetchSegonsPais(.unitedStates)
+//        } else if segmentedTriat.selectedSegmentIndex == 1 {
+//            fetchSegonsPais(.mexico)
+//        } else if segmentedTriat.selectedSegmentIndex == 2 {
+//            fetchSegonsPais(.japon)
+//        }
+ //   }
     
     let newsManager = NewsManager()
     var articles: [Article]?
@@ -53,7 +56,19 @@ class newsViewController: UITableViewController {
             
     }
     
-    
+    func setUpSegmentedControl() {
+        segmentedTriat.removeAllSegments()
+//        segmentedTriat.insertSegment(withTitle: "U.S.A", at: 0, animated: false)
+//        segmentedTriat.insertSegment(withTitle: "Mexico", at: 1, animated: false)
+//        segmentedTriat.insertSegment(withTitle: "Japan", at: 2, animated: false)
+        
+        var segmentIndex = 0
+        for segment in CountryType.allCases {
+            segmentedTriat.insertSegment(withTitle: segment.name, at: segmentIndex, animated: false)
+            segmentIndex += 1
+        }
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +77,8 @@ class newsViewController: UITableViewController {
         
         userSearch.delegate = self
         
-       headLinesSegonsPais()
-       
+        setUpSegmentedControl()
+        
         newsManager.fetchSources(success: { (fuentes) in
            self.sources = fuentes.sources
             // Aquest (fuentes) és la llista de sources que ens ha retornat. 

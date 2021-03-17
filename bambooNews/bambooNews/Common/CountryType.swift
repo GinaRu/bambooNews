@@ -7,8 +7,23 @@
 
 import Foundation
 
-enum CountryType: String {
+enum CountryType: String, CaseIterable {
     case unitedStates = "us"
     case mexico = "mx"
     case japon = "jp"
+    
+    var name: String {
+        switch self {
+        case .unitedStates:
+           return  "U.S.A"
+        case .mexico:
+            return "Mexico"
+        case .japon:
+          return  "Japan"
+        }
+        
+    }
+  
+    
+    
 }
