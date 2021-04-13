@@ -23,8 +23,7 @@ struct NewsManager {
             
             guard let articleList: ArticleList = response.value  else  { return }
             success(articleList)
-            // Aquí cridariem a success
-            
+
         }
         
         

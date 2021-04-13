@@ -26,15 +26,6 @@ class newsViewController: UITableViewController {
             fetchSegonsPais(countrySelected)
     }
     
-  //  func headLinesSegonsPais() {
-//        if segmentedTriat.selectedSegmentIndex == 0 {
-//            fetchSegonsPais(.unitedStates)
-//        } else if segmentedTriat.selectedSegmentIndex == 1 {
-//            fetchSegonsPais(.mexico)
-//        } else if segmentedTriat.selectedSegmentIndex == 2 {
-//            fetchSegonsPais(.japon)
-//        }
- //   }
 
     func loadFirstCountryNews () {
         let countryIndex = 0
@@ -104,17 +95,6 @@ class newsViewController: UITableViewController {
   
         }
     }
-      // EN COMPTES DEL BUCLE FOR PODRIEM FER AIXÓ A DINTRE DEL IF LET:
-    //let font: Source? = sourcesUnwraped.first {$0.id == sourceID}
-   // NewsViewModel.selectedSource = font
-    // Aquest .first ens retorna el primer element que compleixi els requessits que demanem entre claus.
-    // OTRO EJEMPLO:
-    // var source: Source? = nil
-   // sourcesUnWrapped.foreach {
-    // if $0.id == sourceID {
-   //  source = $0
-  // }
-  // }
     
     
     performSegue(withIdentifier: "SegueToDetail", sender: nil)
